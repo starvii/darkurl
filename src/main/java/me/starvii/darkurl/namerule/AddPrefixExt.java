@@ -12,7 +12,7 @@ public class AddPrefixExt implements INameRule {
 	public String transform(String url, String... args) {
 		if (args.length > 1) {
 			int pos = url.lastIndexOf("/");
-			if (pos != -1) {
+			if (pos > -1) {
 				String path = url.substring(0, pos + 1);
 				String file = url.substring(pos + 1);
 				file = args[0] + file + args[1];
