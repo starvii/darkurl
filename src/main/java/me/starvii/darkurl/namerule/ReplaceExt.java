@@ -1,6 +1,6 @@
 package me.starvii.darkurl.namerule;
 
-import burp.BurpExtender;
+import me.starvii.darkurl.DarkURL;
 import me.starvii.darkurl.INameRule;
 
 public class ReplaceExt implements INameRule {
@@ -12,7 +12,7 @@ public class ReplaceExt implements INameRule {
 				return url.substring(0, pos) + args[0];
 			}
 		}
-		BurpExtender.getErr().println("ReplaceExt: no extension name.");
+		DarkURL.getErr().println("ReplaceExt: no extension name.");
 		return null;
 	}
 }

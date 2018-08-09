@@ -1,6 +1,6 @@
 package me.starvii.darkurl.namerule;
 
-import burp.BurpExtender;
+import me.starvii.darkurl.DarkURL;
 import me.starvii.darkurl.INameRule;
 
 /**
@@ -14,8 +14,8 @@ public class DeleteExt implements INameRule {
 		if (pos > -1) {
 			return url.substring(0, pos);
 		} else {
-			BurpExtender.getErr().println("DeleteExt: no extension name.");
-			return url;
+			DarkURL.getErr().println("DeleteExt: no extension name.");
+			return null;
 		}
 	}
 }

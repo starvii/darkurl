@@ -1,6 +1,6 @@
 package me.starvii.darkurl.namerule;
 
-import burp.BurpExtender;
+import me.starvii.darkurl.DarkURL;
 import me.starvii.darkurl.INameRule;
 
 /**
@@ -19,7 +19,7 @@ public class AddPrefixExt implements INameRule {
 				return path + file;
 			}
 		}
-		BurpExtender.getErr().println("AddPrefixExt: no enough args.");
+		DarkURL.getErr().println("AddPrefixExt: no enough args.");
 		return null;
 	}
 }
