@@ -5,6 +5,7 @@ import burp.IBurpExtenderCallbacks;
 import burp.IExtensionHelpers;
 import burp.IExtensionStateListener;
 
+import javax.swing.*;
 import java.io.PrintWriter;
 
 /**
@@ -37,10 +38,11 @@ import java.io.PrintWriter;
  */
 public class DarkURL implements IBurpExtender, IExtensionStateListener {
 	static public final String EXTENSION_NAME = "DARK_URL";
-	static private IBurpExtenderCallbacks callbacks = null;
-	static private PrintWriter out = null;
-	static private PrintWriter err = null;
-	static private boolean enable = true;
+	static private DarkURL instance = null;
+	private IBurpExtenderCallbacks callbacks = null;
+	private PrintWriter out = null;
+	private PrintWriter err = null;
+	private boolean enable = true;
 
 	static public void main(String[] args) {
 		System.out.println("DarkURL!");
@@ -48,12 +50,20 @@ public class DarkURL implements IBurpExtender, IExtensionStateListener {
 
 	@Override
 	public void registerExtenderCallbacks(IBurpExtenderCallbacks callbacks) {
-		DarkURL.callbacks = callbacks;
+		instance = this;
+		this.callbacks = callbacks;
 		callbacks.setExtensionName(EXTENSION_NAME);
 		out = new PrintWriter(callbacks.getStdout(), true);
 		err = new PrintWriter(callbacks.getStderr(), true);
 		callbacks.registerExtensionStateListener(this);
-//		SwingUtilities.invokeLater();
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				OptionTab tab = new OptionTab(callbacks);
+				callbacks.customizeUiComponent(tab);
+				callbacks.addSuiteTab(tab);
+			}
+		});
 
 		callbacks.registerHttpListener(new UrlDetect());
 
@@ -67,33 +77,38 @@ public class DarkURL implements IBurpExtender, IExtensionStateListener {
 		if (null != err) {
 			err.close();
 		}
+		instance = null;
 	}
 
-	public static IBurpExtenderCallbacks getCallbacks() {
+	public IBurpExtenderCallbacks getCallbacks() {
 		assert null != callbacks;
 		return callbacks;
 	}
 
-	public static PrintWriter getOut() {
+	public PrintWriter getOut() {
 		assert null != out;
 		return out;
 	}
 
-	public static PrintWriter getErr() {
+	public PrintWriter getErr() {
 		assert null != err;
 		return err;
 	}
 
-	public static boolean isEnable() {
+	public  boolean isEnable() {
 		return enable;
 	}
 
-	public static void setEnable(boolean enable) {
-		DarkURL.enable = enable;
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 
-	public static IExtensionHelpers getHelper() {
+	public IExtensionHelpers getHelper() {
 		return callbacks.getHelpers();
+	}
+
+	public static DarkURL getInstance() {
+		return instance;
 	}
 }
 

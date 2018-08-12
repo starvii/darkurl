@@ -19,7 +19,7 @@ public class AddPrefixExt implements INameRule {
 				return path + file;
 			}
 		}
-		DarkURL.getErr().println("AddPrefixExt: no enough args.");
+		DarkURL.getInstance().getErr().println("AddPrefixExt: no enough args.");
 		return null;
 	}
 }

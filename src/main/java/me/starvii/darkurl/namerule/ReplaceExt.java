@@ -12,7 +12,7 @@ public class ReplaceExt implements INameRule {
 				return url.substring(0, pos) + args[0];
 			}
 		}
-		DarkURL.getErr().println("ReplaceExt: no extension name.");
+		DarkURL.getInstance().getErr().println("ReplaceExt: no extension name.");
 		return null;
 	}
 }

@@ -17,17 +17,18 @@ public class UrlDetect implements IHttpListener {
 
 	@Override
 	public void processHttpMessage(int toolFlag, boolean messageIsRequest, IHttpRequestResponse messageInfo) {
-		if (DarkURL.isEnable() && IBurpExtenderCallbacks.TOOL_PROXY == toolFlag) {
+		DarkURL instance = DarkURL.getInstance();
+		if (instance.isEnable() && IBurpExtenderCallbacks.TOOL_PROXY == toolFlag) {
 			// 只对Proxy的请求进行探测
-			final IExtensionHelpers h = DarkURL.getHelper();
+			final IExtensionHelpers h = instance.getHelper();
 			final IRequestInfo r = h.analyzeRequest(messageInfo);
 			String url = r.getUrl().toString();
 			final int p = url.indexOf("?");
 			if (p > -1) {
 				url = url.substring(0, p);
 			}
-			DarkURL.getOut().println(url);
-			DarkURL.getOut().println(generateDarkUrl(url));
+			instance.getOut().println(url);
+			instance.getOut().println(generateDarkUrl(url));
 			r.getUrl();
 		}
 	}

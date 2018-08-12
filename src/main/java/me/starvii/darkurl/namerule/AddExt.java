@@ -9,7 +9,7 @@ public class AddExt implements INameRule {
 		if (args.length > 0) {
 			return url + args[0];
 		}
-		DarkURL.getErr().println("AddExt: no args.");
+		DarkURL.getInstance().getErr().println("AddExt: no args.");
 		return null;
 	}
 }

@@ -14,7 +14,7 @@ public class DeleteExt implements INameRule {
 		if (pos > -1) {
 			return url.substring(0, pos);
 		} else {
-			DarkURL.getErr().println("DeleteExt: no extension name.");
+			DarkURL.getInstance().getErr().println("DeleteExt: no extension name.");
 			return null;
 		}
 	}

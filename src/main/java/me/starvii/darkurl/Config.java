@@ -7,6 +7,10 @@ public class Config {
 	static public final Set<String> OneParams = new HashSet<>();
 	static public final Set<String[]> TwoParams = new HashSet<>();
 
+	static public final String DEFAULT_RANGE_PATTERN = "10.*; 172.16.*; 192.168.*";
+
+	static private String rangePattern = DEFAULT_RANGE_PATTERN;
+
 	static {
 		final String _t = "php php3 php5 php7 php~ " +
 				"asp aspx jsp jspx " +
@@ -28,5 +32,13 @@ public class Config {
 
 	public void saveConfig() {
 		// TODO:
+	}
+
+	public static String getRangePattern() {
+		return rangePattern;
+	}
+
+	public static void setRangePattern(String rangePattern) {
+		Config.rangePattern = rangePattern;
 	}
 }
